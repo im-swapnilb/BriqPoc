@@ -6,10 +6,7 @@ import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper; 
 
-/**
- * Hello world!
- *
- */
+
 public class PdfReader
 {
 	static boolean status = false;
@@ -40,7 +37,7 @@ public class PdfReader
        
         for(String temp:lines)
         {
-            System.out.println(count+" "+temp);
+            System.out.println(temp);
         }
         status = true;
     	return status;

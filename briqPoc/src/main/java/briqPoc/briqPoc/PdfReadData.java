@@ -6,10 +6,6 @@ import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper; 
 
-/**
- * Hello world!
- *
- */
 public class PdfReadData 
 {
 
@@ -46,7 +42,7 @@ public class PdfReadData
 
             if (temp.contains("Customer")) {
             	String custName = temp;
-            	System.out.println("Customer name is "+temp);
+            	System.out.println("Customer name is "+custName);
             	
             }
             else if (temp.contains("Account Number")) {
@@ -65,19 +61,19 @@ public class PdfReadData
             }
             
             else if (temp.contains("Total ATM Withdrawals")) {
-            	String totalWithdrawals = temp.trim().split("&")[1].split(" ")[3];
-            	System.out.println("total Withdrawals is "+totalWithdrawals.trim());
+            	String totalWithdrawals = temp.trim().split("Debits")[1];
+            	System.out.println("Total ATM Withdrawals & Debits are "+totalWithdrawals.trim());
 
             }
             
-        else if (temp.contains("Total Deposits")) {
-       // 	String totalDeposits = temp.trim().split("&")[1].split(" ")[18];
-            	System.out.println(temp);
+            else if (temp.contains("Total Deposits")) {
+        	String totalDeposits = temp.trim().split("Credits")[1];
+            	System.out.println("Total Deposits and Debits are "+totalDeposits.trim());
 
             }
             else if (temp.contains("Total Checks")) {
-            //	String totalChecks = temp.trim().split(" ")[3];
-            	System.out.println(temp);
+            	String totalChecks = temp.trim().split("Paid")[1];
+            	System.out.println("Total Checks Paid are "+totalChecks.trim());
 
             }
            

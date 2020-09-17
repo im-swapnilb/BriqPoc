@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
  
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -17,6 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class ConvertExcel2Json {
 	public static void main(String[] args) {
 	    // Step 1: Read Excel File into Java List Objects
@@ -33,7 +35,7 @@ public class ConvertExcel2Json {
 	  /**
 	   * Read Excel File into Java List Objects
 	   * 
-	   * @param filePath
+	   *
 	   * @return
 	   */
 	  private static List<Leads> readExcelFile(String filePath){
@@ -44,7 +46,7 @@ public class ConvertExcel2Json {
 	        Sheet sheet = workbook.getSheet("leads");
 	        Iterator<Row> rows = sheet.iterator();
 	        
-	        List<Leads> lstCustomers = new ArrayList<Leads>();
+	        List<Leads> projectData = new ArrayList<Leads>();
 	        
 	        int rowNumber = 0;
 	        while (rows.hasNext()) {
@@ -56,101 +58,118 @@ public class ConvertExcel2Json {
 	            continue;
 	          }
 	          
-	          Iterator<Cell> cellsInRow = currentRow.iterator();
-	 
-	          Leads cust = new Leads();
-	          
+	          currentRow.getCell(2);
+	          Leads data = new Leads();
+	          String value = "";
 	          int cellIndex = 0;
-	          for(cellIndex=0;cellIndex<10;cellIndex++)
+	          for(cellIndex=0;cellIndex<23;cellIndex++)
 	          {
-	            Cell currentCell = cellsInRow.next();
-
-	            	
+	        	  Cell currentCell =  currentRow.getCell(cellIndex);
+	        if (currentCell != null && currentCell.getCellType() != CellType.BLANK) {
+	        		    value = currentCell.getStringCellValue();// This cell is non empty
+	        		}
+	        else {
+	        	value = "";
+	        }
 	            	
 	            	if(cellIndex==0 )
 	            	{
-	            		cust.setProjectName((currentCell.getStringCellValue()));
-	            		System.out.println(currentCell.getStringCellValue());
-	            	}
-//	            	
+	            		data.setProjectName(value);
+	            	}	            	
 	            	else if(cellIndex==1)
 	            	{
-	            		 cust.setDescription((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
-	            	}
-//	            	
+	            		data.setProjectType(value);
+	            	}            	
 	            	else if(cellIndex==2)
 	            	{
-	            		 cust.setPermitNumber((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setDescription(value);
 	            	}
 	            	else if(cellIndex==3)
 	            	{
-	            		 cust.setNoticeType((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setSqft(value);
 	            	}
 	            	else if(cellIndex==4)
 	            	{
-	            		 cust.setStreet((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setEstimatedProjectCost(value);
 	            	}
 	            	else if(cellIndex==5)
 	            	{
-	            		 cust.setCity((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setPermitNumber(value);
 	            	}
 	            	else if(cellIndex==6)
 	            	{
-	            		 cust.setState((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setNoticeType(value);
 	            	}
 	            	else if(cellIndex==7)
 	            	{
-	            		 cust.setContactInfo((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setStreet(value);
 	            	}
 	            	else if(cellIndex==8)
 	            	{
-	            		 cust.setContactPhone((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setCity(value);
 	            	}
 	            	else if(cellIndex==9)
 	            	{
-	            		 cust.setContactEmail((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setState(value);
 	            	}
 	            	else if(cellIndex==10)
 	            	{
-	            		 cust.setArchitect((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setZipcode(value);
 	            	}
 	            	else if(cellIndex==11)
 	            	{
-	            		 cust.setUploadDate((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setContactInfo(value);
 	            	}
 	            	else if(cellIndex==12)
 	            	{
-	            		 cust.setStatus((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setContactPhone(value);
 	            	}
 	            	else if(cellIndex==13)
 	            	{
-	            		 cust.setLink((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setContactAddress(value);
 	            	}
 	            	else if(cellIndex==14)
 	            	{
-	            		 cust.setSource((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setContactEmail(value);
 	            	}
 	            	else if(cellIndex==15)
 	            	{
-	            		 cust.setConstructionStartDate((currentCell.getStringCellValue()));
-	            			System.out.println(currentCell.getStringCellValue());
+	            		data.setOwner(value);
 	            	}
-
-	          lstCustomers.add(cust);
+	            	else if(cellIndex==16)
+	            	{
+	            		data.setArchitect(value);
+	            	}
+	            	else if(cellIndex==17)
+	            	{
+	            		data.setApplicationDate(value);
+	            	}
+	            	else if(cellIndex==18)
+	            	{
+	            		data.setUploadDate(value);
+	            	}
+	            	else if(cellIndex==19)
+	            	{
+	            		data.setStatus(value);
+	            	}
+	            	else if(cellIndex==20)
+	            	{
+	            		data.setCloseDate(value);
+	            	}
+	            	else if(cellIndex==21)
+	            	{
+	            		data.setLink(value);
+	            	}
+	            	else if(cellIndex==22)
+	            	{
+	            		data.setSource(value);
+	            	}
+	            	else if(cellIndex==23)
+	            	{
+	            		data.setConstructionStartDate(value);
+	            	}
+	            	
+	            	projectData.add(data);
 	        }
 	        
 	        // Close WorkBook
@@ -158,7 +177,7 @@ public class ConvertExcel2Json {
 	        
 	     // return lstCustomers;
 	        }
-	    return lstCustomers;}
+	    return projectData;}
 	    catch (IOException e) {
 	          throw new RuntimeException("FAIL! -> message = " + e.getMessage());
 	        }
@@ -167,16 +186,15 @@ public class ConvertExcel2Json {
 	  /**
 	   * Convert Java Objects to JSON String
 	   * 
-	   * @param customers
-	   * @param fileName
+	  
 	   */
-	  private static String convertObjects2JsonString(List<Leads> customers) {
+	  private static String convertObjects2JsonString(List<Leads> ProjDetails) {
 	    
 	      String jsonString = "";
 	      
 	      try {
 	    	  ObjectMapper mapper = new ObjectMapper();
-	        jsonString = mapper.writeValueAsString(customers);
+	        jsonString = mapper.writeValueAsString(ProjDetails);
 	      } catch (JsonProcessingException e) {
 	        e.printStackTrace();
 	      }

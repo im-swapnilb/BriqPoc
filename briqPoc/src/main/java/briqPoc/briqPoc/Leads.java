@@ -3,7 +3,7 @@ package briqPoc.briqPoc;
 
 public class Leads {
 
-	private String projectName;
+	  private String projectName;
 	  private String projectType;
 	  private String description;
 	  private String sqft;
@@ -18,7 +18,7 @@ public class Leads {
 	  private String contactPhone;
 	  private String contactAddress;
 	  private String contactEmail;
-	  private int owner;
+	  private String owner;
 	  private String architect;
 	  private String applicationDate;
 	  private String uploadDate;
@@ -30,7 +30,7 @@ public class Leads {
 	  public Leads() {
 	  }
 	 
-	  public Leads(String projectName, String projectType,  String sqft, String estimatedProjectCost ,String permitNumber ,String noticeType,String street,String city,String state,String zipcode,String contactInfo,String contactPhone,String contactAddress,String contactEmail,int owner,String architect,String applicationDate,String uploadDate,String status,String closeDate,String link,String source,String constructionStartDate) {
+	  public Leads(String projectName, String projectType, String description, String sqft, String estimatedProjectCost ,String permitNumber ,String noticeType,String street,String city,String state,String zipcode,String contactInfo,String contactPhone,String contactAddress,String contactEmail,String owner,String architect,String applicationDate,String uploadDate,String status,String closeDate,String link,String source,String constructionStartDate) {
 	    this.projectName = projectName;
 	    this.projectType = projectType;
 	    this.description = description;
@@ -174,12 +174,12 @@ public class Leads {
 			this.contactAddress = contactAddress;
 		}
 
-		public int getOwner() {
+		public String getOwner() {
 			return owner;
 		}
 
-		public void setOwner(int i) {
-			this.owner = i;
+		public void setOwner(String owner) {
+			this.owner = owner;
 		}
 
 		public String getArchitect() {
@@ -244,14 +244,5 @@ public class Leads {
 
 		public void setConstructionStartDate(String constructionStartDate) {
 			this.constructionStartDate = constructionStartDate;
-		}
-	
-	 
-	 
-	  @Override
-	  public String toString() {
-	    return "Customer [projectName=" + projectName + ", projectType=" + projectType + ",description=" + description + "]";
-	  }
-
-	
+		}	
 }
