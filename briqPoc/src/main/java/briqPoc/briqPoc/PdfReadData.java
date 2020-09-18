@@ -22,13 +22,10 @@ public class PdfReadData
  
     
     public static boolean pdfDataExtraction() throws IOException {
-    	PDFTextStripper  tStripper = new PDFTextStripper();
-	    tStripper.setStartPage(1);
-	    tStripper.setEndPage(3);
+
     	PDDocument document = PDDocument.load(new File("D:\\briqPoc\\briqPoc\\sample statement.pdf"));
         PDFTextStripper pdfStripper = new PDFTextStripper();
-        pdfStripper.setStartPage(1);
-        pdfStripper.setEndPage(1);
+
 
         //load all lines into a string
         String pages = pdfStripper.getText(document);

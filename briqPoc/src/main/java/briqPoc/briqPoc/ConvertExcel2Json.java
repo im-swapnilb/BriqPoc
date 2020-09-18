@@ -22,10 +22,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ConvertExcel2Json {
 	public static void main(String[] args) {
 	    // Step 1: Read Excel File into Java List Objects
-	    List<Leads> customers = readExcelFile("D:\\briqPoc\\briqPoc\\leads.xlsx");
+	    List<Leads> ProjDetails = readExcelFile("D:\\briqPoc\\briqPoc\\leads.xlsx");
 	    
 	    // Step 2: Convert Java Objects to JSON String
-	    String jsonString = convertObjects2JsonString(customers);
+	    String jsonString = convertObjects2JsonString(ProjDetails);
 	    ObjectMapper mapper = new ObjectMapper();
 	    mapper.setSerializationInclusion(Include.NON_NULL);
 	  
@@ -58,11 +58,11 @@ public class ConvertExcel2Json {
 	            continue;
 	          }
 	          
-	          currentRow.getCell(2);
+	     //     currentRow.getCell(2);
 	          Leads data = new Leads();
 	          String value = "";
-	          int cellIndex = 0;
-	          for(cellIndex=0;cellIndex<23;cellIndex++)
+	     //     int cellIndex = 0;
+	          for(int cellIndex=0;cellIndex<23;cellIndex++)
 	          {
 	        	  Cell currentCell =  currentRow.getCell(cellIndex);
 	        if (currentCell != null && currentCell.getCellType() != CellType.BLANK) {
@@ -175,7 +175,7 @@ public class ConvertExcel2Json {
 	        // Close WorkBook
 	        workbook.close();
 	        
-	     // return lstCustomers;
+	     // return listProjectdata;
 	        }
 	    return projectData;}
 	    catch (IOException e) {
