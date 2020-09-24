@@ -27,13 +27,14 @@ public class PdfReader
         //load all lines into a string
         String pages = pdfStripper.getText(document);
 
-        //split by detecting newline
+        //split by detecting newline \\r?\\n
         String[] lines = pages.split("\r\n|\r|\n");
        
         for(String temp:lines)
         {
             System.out.println(temp);
         }
+        document.close();
         status = true;
     	return status;
     }

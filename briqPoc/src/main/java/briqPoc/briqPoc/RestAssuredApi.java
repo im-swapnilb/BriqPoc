@@ -9,8 +9,6 @@ import org.testng.Assert;
 import com.github.opendevl.JFlat;
 
 
- 
-
 public class RestAssuredApi {
 
 	static String responseData;

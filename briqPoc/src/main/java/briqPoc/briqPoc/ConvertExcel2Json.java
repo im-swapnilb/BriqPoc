@@ -15,7 +15,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,9 +25,6 @@ public class ConvertExcel2Json {
 	    
 	    // Step 2: Convert Java Objects to JSON String
 	    String jsonString = convertObjects2JsonString(ProjDetails);
-	    ObjectMapper mapper = new ObjectMapper();
-	    mapper.setSerializationInclusion(Include.NON_NULL);
-	  
 	    System.out.println(jsonString);
 	  }
 	  
@@ -40,6 +36,7 @@ public class ConvertExcel2Json {
 	   */
 	  private static List<Leads> readExcelFile(String filePath){
 	    try {
+	    	int headers=0;
 	      FileInputStream excelFile = new FileInputStream(new File(filePath));
 	        Workbook workbook = new XSSFWorkbook(excelFile);
 	     
@@ -54,23 +51,24 @@ public class ConvertExcel2Json {
 	          
 	          // skip header
 	          if(rowNumber == 0) {
+	        	  headers = currentRow.getLastCellNum(); // get header count
 	            rowNumber++;
 	            continue;
 	          }
 	          
-	     //     currentRow.getCell(2);
 	          Leads data = new Leads();
 	          String value = "";
-	     //     int cellIndex = 0;
-	          for(int cellIndex=0;cellIndex<23;cellIndex++)
+
+	          // Loop to itrate over the excel
+	          for(int cellIndex=0;cellIndex<headers-1;cellIndex++)
 	          {
 	        	  Cell currentCell =  currentRow.getCell(cellIndex);
-	        if (currentCell != null && currentCell.getCellType() != CellType.BLANK) {
+	        	  if (currentCell != null && currentCell.getCellType() != CellType.BLANK) {
 	        		    value = currentCell.getStringCellValue();// This cell is non empty
-	        		}
-	        else {
-	        	value = "";
-	        }
+	        	  }
+	        	  else {
+	        		  value = "";
+	        	  }
 	            	
 	            	if(cellIndex==0 )
 	            	{
@@ -194,7 +192,7 @@ public class ConvertExcel2Json {
 	      
 	      try {
 	    	  ObjectMapper mapper = new ObjectMapper();
-	        jsonString = mapper.writeValueAsString(ProjDetails);
+	        jsonString = mapper.writeValueAsString(ProjDetails);  // Use json parser if we want to convert in json obj
 	      } catch (JsonProcessingException e) {
 	        e.printStackTrace();
 	      }
